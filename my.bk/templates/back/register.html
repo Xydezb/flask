@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>肖誉动漫管理员注册页面</title>
+  <link href="{{ url_for('static',filename='bk/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
+  <link href="{{ url_for('static',filename='bk/css/style.css')}}" rel="stylesheet" type="text/css">
+  <link href="{{ url_for('static',filename='bk/css/login.css')}}"rel="stylesheet" type="text/css" >
+  <link href="{{ url_for('static',filename='bk/images/icon/icon.png')}}"rel="stylesheet" type="text/css">
+  <link href="{{ url_for('static',filename='bk/images/icon/favicon.ico')}}"rel="stylesheet" type="text/css">
+  <script src="{{ url_for('static',filename='bk/js/jquery-2.1.4.min.js')}}"></script>
+</head>
+<body class="user-select">
+<div class="container">
+
+  <form action="/back/register/" method="post" autocomplete="off" class="form-signin">
+
+    <h2 class="form-signin-heading">管理员注册</h2>
+    {{ error}}
+    <label for="userName" class="sr-only">用户名</label>
+    <input type="text" id="userName" name="username" class="form-control" placeholder="用户名" required autofocus autocomplete="off" maxlength="10">
+
+    <label class="sr-only">电话号码</label>
+      <input type="text" name="number" class="form-control" placeholder="号码" required autocomplete="off" maxlength="18">
+
+    <label  class="sr-only">邮箱</label>
+     <input type="text"  name="email" class="form-control" placeholder="邮箱" required autocomplete="off" maxlength="18">
+
+      <label for="userPwd" class="sr-only">密码</label>
+     <input type="password" id="userPwd" name="password" class="form-control" placeholder="密码" required autocomplete="off" maxlength="18">
+
+     <label for="userPwd2" class="sr-only">确认密码</label>
+     <input type="password" id="userPwd2" name="password1" class="form-control" placeholder="密码" required autocomplete="off" maxlength="18">
+
+    <a href=""><button class="btn btn-lg btn-primary btn-block" type="submit" id="signinSubmit">注册</button></a>
+  </form>
+
+  <div class="footer">
+    <p>
+        <a href="/back/">←返回</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <a href="/back/index/" data-toggle="tooltip" data-placement="left" title="不知道自己在哪?">回到后台 ➡</a></p>
+  </div>
+</div>
+<script src="{{ url_for('static',filename='js/bootstrap.min.js')}}"></script>
+<script>
+$('[data-toggle="tooltip"]').tooltip();
+window.oncontextmenu = function(){
+	//return false;
+};
+$('.siteIcon img').click(function(){
+	window.location.reload();
+});
+$('#signinSubmit').click(function(){
+	if($('#userName').val() === ''){
+		$(this).text('用户名不能为空');
+	}else if($('#userPwd').val() === ''){
+		$(this).text('密码不能为空');
+	}else{
+		$(this).text('请稍后...');
+	}
+});
+</script>
+</body>
+</html>
