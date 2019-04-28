@@ -83,6 +83,7 @@ def delete():
 
 
 @back_blue.route('/wenzhang/',methods=['GET','POST'])
+@is_login
 def wenzhang():
     if request.method == 'GET':
         types = WZ.query.all()
@@ -105,29 +106,22 @@ def wenzhang():
 
 
 
-
-
-
-
-
-
-
-
-
-
 @back_blue.route('/gonggao/',methods=['GET'])
+@is_login
 def gonggao():
     if request.method == 'GET':
         return render_template('back/add-notice.html',error=session.get('user_id'))
 
 
 @back_blue.route('/pinglun/',methods=['GET'])
+@is_login
 def pinglun():
     if request.method == 'GET':
         return render_template('back/comment.html',error=session.get('user_id'))
 
 #栏目的添加
 @back_blue.route('/lanmu/',methods=['GET','POST'])
+@is_login
 def lanmu():
     if request.method == 'GET':
         types = LanMu.query.all()
@@ -148,6 +142,7 @@ def lanmu():
         return redirect(url_for('back.lanmu'))
 
 #栏目删除
+@is_login
 @back_blue.route('/del_lanmu/<string:id>/',methods=['GET'])
 def del_type(id):
     #从数据库里找到id一样的一行完整数据，
@@ -158,6 +153,7 @@ def del_type(id):
 
 
 @back_blue.route('/xiugai/<string:id>',methods=['GET','POST'])
+@is_login
 def undate_lanmu(id):
     if request.method == 'GET':
         return render_template('back/xiugai.html')

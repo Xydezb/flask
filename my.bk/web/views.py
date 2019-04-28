@@ -17,21 +17,35 @@ def shouye():
 @web_blue.route('/about/',methods=['GET'])
 def one():
     if request.method == 'GET':
-        return redirect(url_for('first.shouye'))
+        return render_template('web/about.html')
 
 @web_blue.route('/share/',methods=['GET'])
 def two():
     if request.method == 'GET':
         return render_template('web/share.html')
-@web_blue.route('/share/',methods=['GET'])
+
+@web_blue.route('/leixing/',methods=['GET'])
 def three():
     if request.method == 'GET':
-        return render_template('web/share.html')
-@web_blue.route('/share/',methods=['GET'])
+        return render_template('web/list.html')
+
+@web_blue.route('/fanju/',methods=['GET'])
 def four():
     if request.method == 'GET':
-        return render_template('web/share.html')
-@web_blue.route('/share/',methods=['GET'])
+        return render_template('web/life.html')
+
+@web_blue.route('/shenzuo/',methods=['GET'])
 def five():
     if request.method == 'GET':
-        return render_template('web/share.html')
+        return render_template('web/time.html')
+
+
+@web_blue.route('/liuyan/',methods=['GET'])
+def six():
+    if request.method == 'GET':
+        return render_template('web/gbook.html')
+
+@web_blue.route('/neirong/',methods=['GET'])
+def server():
+    if request.method == 'GET':
+        return render_template('web/info.html')
