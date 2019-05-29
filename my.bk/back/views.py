@@ -49,7 +49,7 @@ def register():
         if user:
             #用户存在
             error = '用户名已存在'
-            return render_template('back/register.html',error = error)
+            return render_template('back/register.html', error = error)
         else:
             if password1 == password:
                 #保存数据
@@ -72,7 +72,7 @@ def register():
 @is_login
 def index():
     if request.method == 'GET':
-        return render_template('back/index.html',error=session.get('user_id'))
+        return render_template('back/index.html', error=session.get('user_id'))
 
 
 @back_blue.route('/delete/',methods=['GET'])
@@ -87,7 +87,7 @@ def delete():
 def wenzhang():
     if request.method == 'GET':
         types = WZ.query.all()
-        return render_template('back/add-article.html',error=session.get('user_id'),types=types)
+        return render_template('back/add-article.html', error=session.get('user_id'), types=types)
     if request.method == 'POST':
         title = request.form.get('title')
         nr = request.form.get('nr')
@@ -112,12 +112,28 @@ def gonggao():
     if request.method == 'GET':
         return render_template('back/add-notice.html',error=session.get('user_id'))
 
-
-@back_blue.route('/pinglun/',methods=['GET'])
+#文章列表
+@back_blue.route('/wzlist/',methods=['GET'])
 @is_login
 def pinglun():
     if request.method == 'GET':
-        return render_template('back/comment.html',error=session.get('user_id'))
+        types = WZ.query.all()
+        page = request.args.get('page', 1, type=int)
+        pagination = WZ.query.order_by(WZ.create_time.desc()).paginate(page, per_page=2, error_out=False)
+        users = pagination.items
+        print(pagination)
+        print(users)
+        return render_template('back/comment.html', error=session.get('user_id'), users=users, pagination=pagination)
+
+#文章删除
+@is_login
+@back_blue.route('/del_wz/<int:id>/', methods=['GET'])
+def del_wz(id):
+    #从数据库里找到id一样的一行完整数据，
+    type = WZ.query.get(id)
+    db.session.delete(type) #删除
+    db.session.commit()
+    return redirect(url_for('back.pinglun'))
 
 #栏目的添加
 @back_blue.route('/lanmu/',methods=['GET','POST'])
@@ -125,7 +141,7 @@ def pinglun():
 def lanmu():
     if request.method == 'GET':
         types = LanMu.query.all()
-        return render_template('back/category.html',error=session.get('user_id'),types=types)
+        return render_template('back/category.html', error=session.get('user_id'), types=types)
     if request.method =='POST':
         name = request.form.get('name')
         bm = request.form.get('bm')
@@ -151,9 +167,8 @@ def del_type(id):
     db.session.commit()
     return redirect(url_for('back.lanmu'))
 
-
-@back_blue.route('/xiugai/<string:id>',methods=['GET','POST'])
 @is_login
+@back_blue.route('/xiugai/<string:id>/',methods=['GET','POST'])
 def undate_lanmu(id):
     if request.method == 'GET':
         return render_template('back/xiugai.html')

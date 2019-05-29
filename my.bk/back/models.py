@@ -28,10 +28,17 @@ class LanMu(db.Model):
 
 
 class WZ(db.Model):
-    title = db.Column(db.String(50),primary_key=True)
+    id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    title = db.Column(db.String(50), nullable=False)
     nr = db.Column(db.TEXT,nullable=False)
     ms = db.Column(db.TEXT,nullable=False)
+    create_time = db.Column(db.DateTime, default=datetime.now)
+
     __tablename__ = 'wenzhang'
+
+
+
+
 
 
 
